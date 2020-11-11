@@ -210,7 +210,7 @@ def load_conllu(file):
                         process_word(word)
                     except:
                         for word in ud.words[sentence_start:]:
-                            print(_encode(word.colums[FORM]))
+                            print(_encode(word.columns[FORM]))
                         raise UDError("There is a cycle in a sentence, may be other errors")
 
             # func_children cannot be assigned within process_word
