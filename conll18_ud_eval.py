@@ -206,7 +206,13 @@ def load_conllu(file):
                         word.parent = parent
 
             for word in ud.words[sentence_start:]:
-                process_word(word)
+                    try:
+                        process_word(word)
+                    except:
+                        for word in ud.words[sentence_start:]:
+                            print(_encode(word.colums[FORM]))
+                        raise UDError("There is a cycle in a sentence, may be other errors")
+
             # func_children cannot be assigned within process_word
             # because it is called recursively and may result in adding one child twice.
             for word in ud.words[sentence_start:]:
@@ -220,7 +226,7 @@ def load_conllu(file):
                 except:
                     for word in ud.words[sentence_start:]:
                         print(_encode(word.colums[FORM]))
-                   raise UDError("There are multiple roots in a sentence")
+                    raise UDError("There are multiple roots in a sentence")
                     
                 
 
